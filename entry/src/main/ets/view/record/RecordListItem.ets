@@ -1,29 +1,30 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
 import RecordItemModel from '../../model/record/RecordItemModel'
+import GroupInfo from '../../viewmodel/record/GroupInfo'
 import RecordItem from '../../viewmodel/record/RecordItem'
 import RecordFoodItem from './RecordFoodItem'
 
 @Component
 export default struct RecordListItem {
-  recordItem: RecordItem
-  @State foods: RecordItem[] = RecordItemModel.list(true)
+  groupInfo: GroupInfo
+  // @State foods: RecordItem[] = RecordItemModel.list(true)
 
   build() {
     Column(){
       Row({space:CommonConstants.SPACE_6}){
-        Image(this.recordItem.image)
+        Image(this.groupInfo.type.icon)
           .width(20)
-        Text(this.recordItem.name)
+        Text(this.groupInfo.type.name)
           .fontWeight(CommonConstants.FONT_WEIGHT_700)
           .fontSize(18)
-        Text('建议2323千卡')
+        Text(`建议${this.groupInfo.type.min}~${this.groupInfo.type.max}千卡`)
           .fontSize(15)
           .fontColor($r('app.color.light_gray'))
         Blank()
-        Text(this.recordItem.calorie+"")
+        Text(this.groupInfo.calorie+"")
           .fontSize(15)
           .fontColor($r('app.color.primary_color'))
-        Text(this.recordItem.unit)
+        Text('碗')
           .fontSize(15)
           .fontColor($r('app.color.light_gray'))
         Image($r('app.media.ic_public_add_norm_filled'))
@@ -38,13 +39,13 @@ export default struct RecordListItem {
       .justifyContent(FlexAlign.SpaceBetween)
 
       // 二级列表
-      if(this.foods.length > 0){
+      if(this.groupInfo.items.length > 0){
         List(){
           ForEach(
-            this.foods,
+            this.groupInfo.items,
             (item, index) => {
               ListItem(){
-                RecordFoodItem({recordItem: item})
+                RecordFoodItem({recordVO: item})
               }.swipeAction({
                 end: this.deleteBtn.bind(this)
               })

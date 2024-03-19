@@ -1,9 +1,16 @@
 import { CommonConstants } from '../common/constants/CommonConstants'
+import DateUtil from '../common/utils/DateUtil'
+import DbUtil from '../common/utils/DbUtil'
+import recordModel from '../model/record/RecordModel'
+import recordService from '../services/RecordService'
 import { RecordIndex } from '../view/record/RecordIndex'
+import GroupInfo from '../viewmodel/record/GroupInfo'
 @Entry
 @Component
 struct Index {
   @State currentIndex: number = 0
+
+
 
   @Builder tabBarBuilder(title: ResourceStr, image: ResourceStr, index: number){
     Column({ space: CommonConstants.SPACE_8 }){
@@ -22,7 +29,7 @@ struct Index {
 
   build() {
     Tabs() {
-      // 饮食记录
+      // 饮食记录x
       TabContent(){
         RecordIndex()
       }

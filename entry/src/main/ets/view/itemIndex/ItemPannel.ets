@@ -1,4 +1,5 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
+import RecordService from '../../services/RecordService'
 import RecordItem from '../../viewmodel/record/RecordItem'
 import ItemPannelDetail from './ItemPannelDetail'
 import ItemPannelHeader from './ItemPannelHeader'
@@ -37,11 +38,19 @@ export  default struct ItemPannel {
           .backgroundColor($r('app.color.light_gray'))
         Button('提交').onClick((event: ClickEvent) => {
           this.isShowPannel = false
+          RecordService.insertRecord(0,this.currentItem.id,this.amount)
+            .then(value => {
+              console.log("插入成功")
+
+            }).catch(error => {
+            console.log("插入失败")
+          })
         })
           .width(120)
           .type(ButtonType.Normal)
           .borderRadius(5)
           .backgroundColor($r('app.color.primary_color'))
+
       }
     }
     .width('100%')

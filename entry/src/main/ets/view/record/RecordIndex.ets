@@ -1,11 +1,25 @@
 
 import { CommonConstants } from '../../common/constants/CommonConstants'
+import DateUtil from '../../common/utils/DateUtil'
+import recordService from '../../services/RecordService'
+import GroupInfo from '../../viewmodel/record/GroupInfo'
 import RecordList from './RecordList'
 import { SearchHeader } from './SearchHeader'
 import StaticCard from './StaticCard'
 @Preview
 @Component
 export struct RecordIndex {
+  @Provide groupInfoArr:GroupInfo[] = []
+
+  @StorageProp('selectedDate')
+  @Watch('aboutToAppear')
+  selectedDate: number = DateUtil.beginTimeOfDay(new Date())
+
+  async aboutToAppear(){
+
+    // let createTime = (AppStorage.Get('selectedDate') || DateUtil.beginTimeOfDay(new Date())) as number
+    this.groupInfoArr = await recordService.listByDate(this.selectedDate)
+  }
   build() {
     Column({space:CommonConstants.SPACE_10}){
       // 头部搜索

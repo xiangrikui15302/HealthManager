@@ -71,6 +71,10 @@ class RecordItemModel {
 
   }
 
+  getItemById(id:number,isFood:boolean = true) {
+    return isFood ? foods[id] : workouts[id-10000]
+  }
+
 }
 const recordItemModel = new RecordItemModel()
 export default recordItemModel as RecordItemModel

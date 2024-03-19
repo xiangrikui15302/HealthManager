@@ -1,14 +1,15 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
 import RecordItem from '../../viewmodel/record/RecordItem'
+import RecordVO from '../../viewmodel/record/RecordVO'
 @Component
 export default struct RecordFoodItem {
-  recordItem: RecordItem
+  recordVO: RecordVO
   build() {
     Row({space:CommonConstants.SPACE_10}){
-      Image(this.recordItem.image)
+      Image(this.recordVO.recordItem.image)
         .width(40)
       Column({space:CommonConstants.SPACE_4}){
-        Text(this.recordItem.name)
+        Text(this.recordVO.recordItem.name)
           .fontWeight(CommonConstants.FONT_WEIGHT_600)
           .fontSize(15)
         Text('150毫升')

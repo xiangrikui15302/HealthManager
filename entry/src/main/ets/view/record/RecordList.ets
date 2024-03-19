@@ -1,20 +1,22 @@
 import router from '@ohos.router'
 import { CommonConstants } from '../../common/constants/CommonConstants'
 import RecordItemModel from '../../model/record/RecordItemModel'
+import GroupInfo from '../../viewmodel/record/GroupInfo'
 import RecordItem from '../../viewmodel/record/RecordItem'
 import Record from '../../viewmodel/record/RecordItem'
 import RecordListItem from './RecordListItem'
 @Component
 export default struct RecordList {
+ @Consume groupInfoArr: GroupInfo[]
   @State recordList: RecordItem[] = RecordItemModel.list(true)
   build() {
     Row(){
       List({space:CommonConstants.SPACE_8}){
         ForEach(
-          this.recordList,
-          (item: RecordItem, index) => {
+          this.groupInfoArr,
+          (item: GroupInfo, index) => {
             ListItem(){
-              RecordListItem({recordItem:item})
+              RecordListItem({groupInfo:item})
                 .backgroundColor(Color.White)
                 // .width('100%')
 

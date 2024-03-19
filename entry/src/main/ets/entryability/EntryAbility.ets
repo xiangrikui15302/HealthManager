@@ -1,12 +1,17 @@
 import UIAbility from '@ohos.app.ability.UIAbility';
 import hilog from '@ohos.hilog';
 import window from '@ohos.window';
+import DbUtil from '../common/utils/DbUtil';
 import PreferenceUtil from '../common/utils/PreferenceUtil';
+import recordModel from '../model/record/RecordModel';
 
 export default class EntryAbility extends UIAbility {
-  onCreate(want, launchParam) {
+  async onCreate(want, launchParam) {
     // 加载用户首选项
     PreferenceUtil.loadPreference(this.context)
+    await DbUtil.initDB(this.context)
+    await DbUtil.createTable(recordModel.getCreateTableSql())
+
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
   }
 
