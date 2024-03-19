@@ -10,7 +10,15 @@ import GroupInfo from '../viewmodel/record/GroupInfo'
 struct Index {
   @State currentIndex: number = 0
 
+  @State isPageShow:boolean = true
 
+  onPageShow(){
+    this.isPageShow = true
+  }
+
+  onPageHide(){
+    this.isPageShow = false
+  }
 
   @Builder tabBarBuilder(title: ResourceStr, image: ResourceStr, index: number){
     Column({ space: CommonConstants.SPACE_8 }){
@@ -31,7 +39,7 @@ struct Index {
     Tabs() {
       // 饮食记录x
       TabContent(){
-        RecordIndex()
+        RecordIndex({isPageShow: this.isPageShow})
       }
       .tabBar(this.tabBarBuilder($r('app.string.tab_record'),$r('app.media.ic_calendar'),0))
 

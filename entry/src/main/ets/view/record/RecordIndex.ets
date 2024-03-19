@@ -3,6 +3,8 @@ import { CommonConstants } from '../../common/constants/CommonConstants'
 import DateUtil from '../../common/utils/DateUtil'
 import recordService from '../../services/RecordService'
 import GroupInfo from '../../viewmodel/record/GroupInfo'
+import RecordVO from '../../viewmodel/record/RecordVO'
+import StaticInfo from '../../viewmodel/record/StaticInfo'
 import RecordList from './RecordList'
 import { SearchHeader } from './SearchHeader'
 import StaticCard from './StaticCard'
@@ -10,16 +12,33 @@ import StaticCard from './StaticCard'
 @Component
 export struct RecordIndex {
   @Provide groupInfoArr:GroupInfo[] = []
-
+  @Provide records:RecordVO[] = []
   @StorageProp('selectedDate')
   @Watch('aboutToAppear')
   selectedDate: number = DateUtil.beginTimeOfDay(new Date())
 
+  @Prop
+  @Watch('aboutToAppear')
+  isPageShow:boolean
+
+  @Provide staticInfo: StaticInfo = new StaticInfo()
+
+
   async aboutToAppear(){
 
     // let createTime = (AppStorage.Get('selectedDate') || DateUtil.beginTimeOfDay(new Date())) as number
-    this.groupInfoArr = await recordService.listByDate(this.selectedDate)
+    if (this.isPageShow) {
+
+      this.records = await recordService.listByDate(this.selectedDate)
+      console.log("records.len:"+this.records.length)
+
+      this.staticInfo = recordService.calculateStatsInfo(this.records)
+      console.log("staticInfo:"+this.staticInfo.carbon)
+      this.groupInfoArr = recordService.parseToGroupInfoArr(this.records)
+    }
+
   }
+
   build() {
     Column({space:CommonConstants.SPACE_10}){
       // 头部搜索

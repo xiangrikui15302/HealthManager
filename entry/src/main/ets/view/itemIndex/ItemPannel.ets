@@ -7,6 +7,7 @@ import NumberKeyboard from './NumberKeyboard'
 @Component
 export  default struct ItemPannel {
   @Link currentItem:RecordItem
+  @Prop groupInfoId:number
   @Consume isShowPannel: boolean
 
   @State amount:number = 1
@@ -38,7 +39,7 @@ export  default struct ItemPannel {
           .backgroundColor($r('app.color.light_gray'))
         Button('提交').onClick((event: ClickEvent) => {
           this.isShowPannel = false
-          RecordService.insertRecord(0,this.currentItem.id,this.amount)
+          RecordService.insertRecord(this.groupInfoId,this.currentItem.id,this.amount)
             .then(value => {
               console.log("插入成功")
 

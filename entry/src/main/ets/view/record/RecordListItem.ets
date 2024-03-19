@@ -21,7 +21,7 @@ export default struct RecordListItem {
           .fontSize(15)
           .fontColor($r('app.color.light_gray'))
         Blank()
-        Text(this.groupInfo.calorie+"")
+        Text(this.groupInfo.calorie.toFixed(0)+"")
           .fontSize(15)
           .fontColor($r('app.color.primary_color'))
         Text('碗')

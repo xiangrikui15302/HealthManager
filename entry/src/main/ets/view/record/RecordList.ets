@@ -8,7 +8,7 @@ import RecordListItem from './RecordListItem'
 @Component
 export default struct RecordList {
  @Consume groupInfoArr: GroupInfo[]
-  @State recordList: RecordItem[] = RecordItemModel.list(true)
+
   build() {
     Row(){
       List({space:CommonConstants.SPACE_8}){
@@ -23,6 +23,7 @@ export default struct RecordList {
             }.onClick(() => {
               router.pushUrl({
                 url:'pages/ItemIndexPage',
+                params:{"groupInfo": item}
               })
             })
           }

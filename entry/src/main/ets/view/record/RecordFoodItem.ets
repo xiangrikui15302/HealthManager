@@ -12,12 +12,12 @@ export default struct RecordFoodItem {
         Text(this.recordVO.recordItem.name)
           .fontWeight(CommonConstants.FONT_WEIGHT_600)
           .fontSize(15)
-        Text('150毫升')
+        Text(`${this.recordVO.amount}${this.recordVO.recordItem.unit}`)
           .fontSize(12)
           .fontColor($r('app.color.light_gray'))
       }
       Blank()
-      Text('50千卡')
+      Text(`${this.recordVO.calorie.toFixed(0)}千卡`)
         .fontSize(14)
         .fontColor($r('app.color.light_gray'))
     }

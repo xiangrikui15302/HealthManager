@@ -1,5 +1,9 @@
 import { CommonConstants } from '../../common/constants/CommonConstants'
 import dateUtil from '../../common/utils/DateUtil'
+import recordService from '../../services/RecordService'
+import GroupInfo from '../../viewmodel/record/GroupInfo'
+import RecordVO from '../../viewmodel/record/RecordVO'
+import StaticInfo from '../../viewmodel/record/StaticInfo'
 import CalorieStats from './CalorieStats'
 import { DatePickDialog } from './DatePickDialog'
 import NutrientStats from './NutrientStats'
@@ -14,6 +18,8 @@ export default struct StaticCard {
       selectedDate: new Date(this.selectedDate)
     })
   })
+
+
   build() {
     Column(){
       Row(){

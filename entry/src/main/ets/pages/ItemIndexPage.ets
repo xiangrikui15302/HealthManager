@@ -3,13 +3,14 @@ import thermal from '@ohos.thermal'
 import { CommonConstants } from '../common/constants/CommonConstants'
 import ItemIndexList from '../view/itemIndex/ItemIndexList'
 import ItemPannel from '../view/itemIndex/ItemPannel'
+import GroupInfo from '../viewmodel/record/GroupInfo'
 import RecordItem from '../viewmodel/record/RecordItem'
 @Entry
 @Component
 struct ItemIndexPage {
-  @State message: string = '早餐'
   @Provide isShowPannel: boolean = false
   @State item: RecordItem = null
+  @State groupInfo:GroupInfo = router.getParams()["groupInfo"]
   // @Provide currentItem: RecordItem = null
 
   onPannelShow(item: RecordItem){
@@ -21,12 +22,12 @@ struct ItemIndexPage {
     Column() {
       this.header()
 
-      ItemIndexList({onPannelShow: this.onPannelShow.bind(this)})
+      ItemIndexList({isFood: this.groupInfo.type.id !== 4, onPannelShow: this.onPannelShow.bind(this)})
         .width('100%')
         .layoutWeight(1)
 
       Panel(this.isShowPannel) {
-        ItemPannel({currentItem: $item})
+        ItemPannel({currentItem: $item,groupInfoId: this.groupInfo.type.id})
       }
       .mode(PanelMode.Full)
       .dragBar(false)
@@ -44,7 +45,7 @@ struct ItemIndexPage {
           router.back()
         })
       Blank()
-      Text(this.message)
+      Text(this.groupInfo.type.name)
         .fontSize(18)
         .fontWeight(FontWeight.Bold)
     }

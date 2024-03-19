@@ -6,13 +6,14 @@ import type RecordItem from '../../viewmodel/record/RecordItem'
 @Component
 export default struct ItemIndexList {
   @Consume isShowPannel: boolean
+  @Prop isFood:boolean
   onPannelShow: (item: ItemCategory) => void
 
   build() {
     Row(){
       Tabs() {
         ForEach(
-          itemCategoryModel.foodsCategories,
+          this.isFood ? itemCategoryModel.foodsCategories : itemCategoryModel.WorkoutCategories,
           (item: ItemCategory, index)=>{
             TabContent(){
               this.tabContentBuilder(item.id)
@@ -28,7 +29,7 @@ export default struct ItemIndexList {
   @Builder tabContentBuilder(categoryId: number) {
     List(){
       ForEach(
-        recordItemModel.getListByCategoryId(true,categoryId),
+        recordItemModel.getListByCategoryId(this.isFood,categoryId),
         (item: RecordItem, index) => {
           ListItem(){
             Row({ space: CommonConstants.SPACE_6 }) {

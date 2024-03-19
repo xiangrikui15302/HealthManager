@@ -22,9 +22,17 @@ export default struct ItemPannelDetail {
         .opacity(0.6)
       Row({space: CommonConstants.SPACE_10}){
         this.NutrientInfo("热量（千卡）", this.currentItem.calorie+"")
-        this.NutrientInfo("碳水（克）", this.currentItem.carbon+"")
-        this.NutrientInfo("蛋白质（克）", this.currentItem.protein+"")
-        this.NutrientInfo("脂肪（克）", this.currentItem.fat+"")
+        if(this.currentItem.carbon > 0){
+          this.NutrientInfo("碳水（克）", this.currentItem.carbon+"")
+        }
+        if(this.currentItem.protein > 0) {
+          this.NutrientInfo("蛋白质（克）", this.currentItem.protein+"")
+        }
+        if(this.currentItem.fat > 0) {
+          this.NutrientInfo("脂肪（克）", this.currentItem.fat+"")
+        }
+
+
       }
       Divider()
         .margin({left:CommonConstants.SPACE_10, right: CommonConstants.SPACE_10})
